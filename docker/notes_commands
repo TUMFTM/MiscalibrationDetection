@@ -1,0 +1,31 @@
+docker build -t mmsiamese:latest -f docker/Dockerfile .
+docker run --gpus all -v /home/ubuntu/Documents/students/Jeremialie/MMSiamese/data/kitti:/app/data/kitti --name mmsiamese-container mmsiamese:latest
+docker run --gpus all -v _______/MMSiamese/data/kitti:/app/data/kitti --name mmsiamese-container mmsiamese:latest
+
+# docker run --rm -it -v /home/ubuntu/Documents/students/Jeremialie/MMSiamese/data/kitti:/app/data/kitti -e NVIDIA_DRIVER_CAPABILITIES=all --runtime=nvidia --gpus all --name mmsiamese-container mmsiamese:latest
+docker cp mmsiamese-container:/app/outputs /home/ubuntu/Documents/students/Jeremialie/MMSiamese
+docker cp mmcl-container:/app/outputs /home/ge93jen/jeremialie/MMSiamese/
+docker stop mmsiamese-container
+docker rm mmsiamese-container
+docker container ls -a
+docker logs mmsiamese-container
+docker exec -t mmsiamese-container
+
+tensorboard --logdir outputs/logs --port 6006
+
+ssh ge93jen@edmonda.cps.cit.tum.de
+/home/ge93jen/jeremialie/data/kitti/kitti
+ln -s /home/ubuntu/Rosbag2/ kitti
+scp -r /home/ubuntu/Documents/students/Jeremialie/MMSiamese/data/kitti ge93jen@edmonda.cps.cit.tum.de:/home/ge93jen/jeremialie/data/kitti
+scp -r ge93jen@edmonda.cps.cit.tum.de:/home/ge93jen/jeremialie/MMSiamese/outputs_ /home/ubuntu/Documents/students/Jeremialie/MMSiamese/outputs_gpu
+
+
+# Edna
+scp -r ge93jen@edna.cps.cit.tum.de:/home/ge93jen/jeremialie/MMCL/outputs_ /home/ubuntu/Documents/students/Jeremialie/MMSiamese/outputs_gpu
+docker build -t mmcl:latest -f docker/Dockerfile .
+docker run --gpus all --shm-size=1.5g -v /home/ge93jen/jeremialie/MMCL/data/kitti:/app/data/kitti --name mmcl-container mmcl:latest
+
+# On Windows
+scp -r ge93jen@edna.cps.cit.tum.de:/home/ge93jen/jeremialie/MMCL/outputs C:\Me
+
+mv per* kitti
