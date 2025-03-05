@@ -1,4 +1,4 @@
-# MCDet: Real-Time Miscalibration Detection of LiDAR and Camera Sensors
+# Real-Time Miscalibration Detection of LiDAR and Camera Sensors
 
 This project explores **multimodal self-supervised learning (SSL)** techniques for monitoring the calibration of **LiDAR** and **camera** data using **contrastive learning**. The work aims to detect and correct sensor miscalibration in LiDAR projection into image plane.
 
